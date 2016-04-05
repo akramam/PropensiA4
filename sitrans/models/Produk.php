@@ -53,11 +53,11 @@ class Produk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idmerk' => Yii::t('app', 'Idmerk'),
-            'idsupplier' => Yii::t('app', 'Idsupplier'),
-            'idjenis' => Yii::t('app', 'Idjenis'),
+            'idmerk' => Yii::t('app', 'Merk'),
+            'idsupplier' => Yii::t('app', 'Supplier'),
+            'idjenis' => Yii::t('app', 'Jenis'),
             'lokasi' => Yii::t('app', 'Lokasi'),
-            'namaproduk' => Yii::t('app', 'Namaproduk'),
+            'namaproduk' => Yii::t('app', 'Nama Produk'),
             'harga_beli' => Yii::t('app', 'Harga Beli'),
             'harga_jual' => Yii::t('app', 'Harga Jual'),
             'kilo' => Yii::t('app', 'Kilo'),

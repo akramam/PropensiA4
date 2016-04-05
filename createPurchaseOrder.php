@@ -20,13 +20,19 @@
 	
 	session_start();
 	
-	$supplierName = $produk = $jmlKilo = $jmlKarton= $tglTerima = $caraTerima = $caraBayar= "";
+	$supplierName = $produk = $jmlKilo = $jmlKarton= $tglTerima = $caraTerima = $caraBayar= $idBayar="";
 	$supplierNameErr = $produkErr = $jmlKiloErr = $jmlKartonErr = $tglTerimaErr = $caraTerimaErr = $caraBayarErr = "";
 	$supplierNameB = $produkB = $jmlKiloB = $jmlKartonB = $tglTerimaB = $caraTerimaB = $caraBayarB = "*";
 	$searchErr = "";
 	$limit = 10;
 	
-		
+	// tanggal pembelian
+	$tglBeli = date('Y-m-d');
+	echo "<br>";
+	echo "Tanggal pembelian: ";
+	echo $tglBeli;
+	echo "<br>";
+
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		//supplierName
 		if (empty($_POST["supplierName"])) {
@@ -55,141 +61,126 @@
 		}
 				
 		//jmlKilo
-		if (empty($_POST["jmlMalam"])) {
-			$jmlMalamErr = "Number of nights is required";
-			$jmlMalamB = "";
+		if (empty($_POST["jmlKilo"])) {
+			$jmlKiloErr = "Number of kilo is required";
+			$jmlKiloB = "";
 		}
 		else {
-			$jmlMalam = test_input($_POST["jmlMalam"]);
-			if (!preg_match("/^[0-9]*$/",$jmlMalam)) {
-				$jmlMalamErr = "Only number allowed";
-				$jmlMalamB = "";
+			$jmlKilo = test_input($_POST["jmlKilo"]);
+			if (!preg_match("/^[0-9]*$/",$jmlKilo)) {
+				$jmlKiloErr = "Only number allowed";
+				$jmlKiloB = "";
 			}
 		}
 		
 		//jmlKarton
-		if (empty($_POST["jmlKamar"])) {
-			$jmlKamarErr = "Number of rooms is required";
-			$jmlKamarB = "";
+		if (empty($_POST["jmlKarton"])) {
+			$jmlKartonErr = "Number of karton is required";
+			$jmlKartonB = "";
 		}
 		else {
-			$jmlKamar = test_input($_POST["jmlKamar"]);
-			if (!preg_match("/^[0-9]*$/",$jmlKamar)) {
-				$jmlKamarErr = "Only number allowed";
-				$jmlKamarB = "";
+			$jmlKarton = test_input($_POST["jmlKarton"]);
+			if (!preg_match("/^[0-9]*$/",$jmlKarton)) {
+				$jmlKartonErr = "Only number allowed";
+				$jmlKartonB = "";
 			}
 		}
 
 		//tglTerima
-		if (empty($_POST["checkIn"])) {
-			$checkInErr = "Check in date is required";
-			$checkInB = "";
+		if (empty($_POST["tglTerima"])) {
+			$tglTerimaErr = "Check in date is required";
+			$tglTerimaB = "";
 		}
 		else {
-			$checkIn = test_input($_POST["checkIn"]);
-			$testtgl  = explode('-', $checkIn);
+			$tglTerima = test_input($_POST["tglTerima"]);
+			$testtgl  = explode('-', $tglTerima);
 					if (count($testtgl) == 3) {
-				    	if (date("Y-m-d") > $checkIn) {
-				    		$checkInErr = "Date is expired";
+				    	if (date("Y-m-d") > $tglTerima) {
+				    		$tglTerimaErr = "Date is expired";
 				   		} 
 					}
 		}
 
 		//caraTerima
-		if (empty($_POST["cityName"])) {
-			$cityNameErr = "City name is required";
-			$cityNameB = "";
+		if (empty($_POST["caraTerima"])) {
+			$caraTerimaErr = "Cara terima is required";
+			$caraTerimaB = "";
 		}
 		else {
-			$cityName = test_input($_POST["cityName"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$cityName)) {
-				$nameLoginErr = "Only letters and white space allowed";
-				$nameLoginB = "";
-			}
-		}
+     		$caraTerima = test_input($_POST["caraTerima"]);
+   		}
+		
 
 		//caraBayar
-		if (empty($_POST["cityName"])) {
-			$cityNameErr = "City name is required";
-			$cityNameB = "";
+		if (empty($_POST["caraBayar"])) {
+			$caraBayarErr = "Cara bayar is required";
+			$caraBayarB = "";
 		}
 		else {
-			$cityName = test_input($_POST["cityName"]);
-			if (!preg_match("/^[a-zA-Z ]*$/",$cityName)) {
-				$nameLoginErr = "Only letters and white space allowed";
-				$nameLoginB = "";
-			}
-		}
+     		$caraBayar = test_input($_POST["caraBayar"]);
+   		}
+		
 		
 	}
 	
-	if(empty($cityNameErr) && empty($checkInErr) && empty($jmlMalamErr) && empty($jmlKamarErr))
+	if(empty($supplierNameErr) && empty($produkErr) && empty($jmlKiloErr) && empty($jmlKartonErr) && empty($tglTerimaErr) && empty($caraTerimaErr) && empty($caraBayarErr))
 	{
-		//tampilkan berdasarkan
-		if(test_input($_POST["orderby1"])=="harga"){
-			$orderby1="harga";
-		}
-		else{
-			$orderby1="rating";
-		}
-		
-		if(test_input($_POST["orderby2"])=="ascending"){
-			$orderby2="ASC";
-		}
-		else{
-			$orderby2="DESC";
-		}
-		
-		//tanggal check out			
-		$check_date = $_POST["checkIn"];
-		$checkOut = date('Y-m-d',strtotime($check_date." +".$jmlMalam." days"));
-		echo "<br>";
-		//echo "Tanggal check out: ";
-		//echo $checkOut;
-		
+
 		//bikin id beli
-		//$increments = pg_fetch_array(pg_query("select max(idjenis) from jenis ;"));
-		//echo $increments[0];
-		//$id=$increments[0] + 1 ;
+		$increments = pg_fetch_array(pg_query("select max(idbeli) from pembelian;"));
+		echo $increments[0];
+		$idpembelian=$increments[0] + 1 ;
 		
 		// bikin id bayar pakai if
-
+		$ambilIdBayar = "SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '".$tglBeli."' AND supplier = '".$supplierName."';";
+		
+		$kueriIdBayar = pg_query($ambilIdBayar);
+		if(pg_num_rows($kueriIdBayar) == 0)
+		{
+			$increments2 = pg_fetch_array(pg_query("select max(idbayar) from pembayaran_out;"));
+			echo $increments2[0];
+			$idbayar=$increments2[0] + 1 ;
+			echo "test";
+		}
+		else
+		{
+			$idBayar=$kueriIdBayar;	
+		}
+		echo $idBayar;
 		// bikin status delivery pakai default belum
+		$statusDelivery = "Belum Diterima";
 
 		// ngaliin harga
+		function kali($x, $y) 
+		{
+    		$z = $x * $y;
+    		return $z;
+		}
 
+		$ambilHargaProduk = "SELECT harga_beli FROM produk WHERE namaProduk = '".$produk."';";
+		$hargaProduk = pg_query($ambilHargaProduk);
+		$harga_total= kali($hargaProduk, $jmlKilo);
+
+		echo "<br>";
+		echo "5 * 10 = " . kali(5, 10) . "<br>";
+		$a=5;
+		$b=6;
+		$cobaKali= kali($a,$b);
+		echo "<br>";
+		echo $cobaKali;
+		
 		//masukin ke db
-		if(date('w', strtotime($check_date)) == 6 || date('w', strtotime($check_date)) == 0 ){
-		$masukan = "SELECT H.Nama AS nama, H.Alamat AS alamat, H.Rating AS rating, H.JmlPerating AS jmlperating, MIN(T.CP_hlibur) AS harga, H.Id_Hotel AS idhotel
-					FROM HOTEL H, KOTA_KAB K, TIPE_KAMAR T
-					WHERE H.KotaKab = K.Id_KotaKab AND H.Id_Hotel = T.KodeHotel AND K.Nama = '".$cityName."' AND T.KodeHotel IN(
-						SELECT U.KodeHotel
-						FROM UNIT_KAMAR U, TIPE_KAMAR T
-						WHERE T.KodeHotel = U.KodeHotel AND T.NamaTipe = U.NamaTipe AND ((U.KodeHotel, U.NamaTipe, U.NoUnit) NOT IN(
-							SELECT PK.KodeHotel, PK.NamaTipe, PK.NoUnit
-							FROM PEMESANAN_KAMAR PK, PEMESANAN P
-							WHERE P.Kode = PK.KodePemesanan AND 
-							(('".$checkIn."' BETWEEN P.TglCheckIn AND (P.TglCheckIn + JmlMalam)) 
-							OR ((date '".$checkIn."' + integer '".$jmlMalam."') BETWEEN P.TglCheckIn AND (P.TglCheckIn + JmlMalam))
-							OR ((P.TglCheckIn BETWEEN '".$checkIn."' AND (date '".$checkIn."' + integer '".$jmlMalam."')) AND 
-								((P.TglCheckIn + P.JmlMalam) BETWEEN '".$checkIn."' AND (date '".$checkIn."' + integer '".$jmlMalam."')))
-							)
-							)
-						)
-						GROUP BY U.KodeHotel
-						HAVING COUNT (*) > '".$jmlKamar."'
-					)
-					GROUP BY H.Id_Hotel, H.Alamat, H.Rating, H.JmlPerating, H.Id_Hotel
-					ORDER BY ".$orderby1." ".$orderby2."
-					limit $limit offset $offset
-					;"
-					;
+
+		$masukan = "INSERT INTO PEMBELIAN ;";
+		
+		//$masukan = lala;
 		//echo " weekend";
 				
-		}
-		
-		$result = pg_query($masukan);
+	
 	}
+		
+		//$result = pg_query($masukan);
+	
 	
 		
 	function test_input($data) {
@@ -199,11 +190,7 @@
 	   return $data;
 	}
 	
-	//$_SESSION["cityName"] = $cityName;
-	//$_SESSION["checkIn"] = $checkIn;
-	//$_SESSION["jmlMalam"] = $jmlMalam;
-	//$_SESSION["jmlKamar"] = $jmlKamar;
-	
+		
 	pg_close($database);	
 ?>
 
@@ -217,6 +204,7 @@
 
 <body>
 	<!-- Tanggal hari ini -->
+		
 	<div class="form2">	
 	
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" autocomplete="on" id="search-form" novalidate>
@@ -263,16 +251,17 @@
 		<!-- cara terima diantar/dijemput-->
 		<label for="caraTerima"> Cara Terima <span class="error"><?php echo $caraTerimaB;?></span></label>
 		<br><span class="error"><?php echo $caraTerimaErr;?></span>
-		<input class ="input" type="radio" name="caraTerima" value="diantar" id="diantar" required autofocus>Diantar
-		<input class ="input" type="radio" name="caraTerima" value="dijemput" id="dijemput" required autofocus>Dijemput
+		<input class ="input" type="radio" name="caraTerima" <?php if (isset($caraTerima) && $caraTerima=="diantar") echo "checked";?> value="diantar" id="caraTerima" required autofocus>Diantar
+		<input class ="input" type="radio" name="caraTerima" <?php if (isset($caraTerima) && $caraTerima=="dijemput") echo "checked";?> value="dijemput" id="caraTerima" required autofocus>Dijemput
 
 		<br><br>
 
 		<!-- cara bayar tunai/transfer -->
 		<label for="caraBayar"> Cara Bayar <span class="error"><?php echo $caraBayarB;?></span></label>
 		<br><span class="error"><?php echo $caraBayarErr;?></span>
-		<input class ="input" type="radio" name="caraBayar" value="cash" id="cash" required autofocus>Cash
-		<input class ="input" type="radio" name="caraBayar" value="transfer" id="transfer" required autofocus>Transfer
+		<input class ="input" type="radio" name="caraBayar" <?php if (isset($caraBayar) && $caraBayar=="cash") echo "checked";?>  value="cash" id="caraBayar" required autofocus>Cash
+		<input class ="input" type="radio" name="caraBayar" <?php if (isset($caraBayar) && $caraBayar=="transfer") echo "checked";?>  value="transfer" id="caraBayar" required autofocus>Transfer
+
 				
 		<br><br>
 		

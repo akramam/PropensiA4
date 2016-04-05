@@ -17,7 +17,27 @@ if ($count == 1) {
     session_start();
     $_SESSION['username'] = $myusername;
     $_SESSION['password'] = $mypassword;
-	echo "sukses login";
+	$role=pg_fetch_array(pg_query("SELECT role FROM pengguna WHERE username='$myusername' and password='$mypassword'"));
+	echo $role[0];
+	if(strtolower($role[0])=='admin'){
+
+		echo "Masuk ke $role[0]";
+	} else if(strtolower($role[0])=='purchasing'){
+
+		echo "Masuk ke $role[0]";
+	} else if(strtolower($role[0])=='sales marketing'){
+
+		echo "Masuk ke $role[0]";
+	} else if(strtolower($role[0])=='admin inventori'){
+
+		echo "Masuk ke $role[0]";
+	} else if(strtolower($role[0])=='finance'){
+
+		echo "Masuk ke $role[0]";
+	} else if(strtolower($role[0])=='bod'){
+
+		echo "Masuk ke $role[0]";
+	}
 }
 else{
  echo "tidak sukses login";

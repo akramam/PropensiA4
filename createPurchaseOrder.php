@@ -24,7 +24,7 @@
 	$supplierNameErr = $produkErr = $jmlKiloErr = $jmlKartonErr = $tglTerimaErr = $caraTerimaErr = $caraBayarErr = "";
 	$supplierNameB = $produkB = $jmlKiloB = $jmlKartonB = $tglTerimaB = $caraTerimaB = $caraBayarB = "*";
 	$searchErr = "";
-	$limit = 10;
+	$idPembayaran = 0;
 	
 	// tanggal pembelian
 	$tglBeli = date('Y-m-d');
@@ -88,7 +88,7 @@
 
 		//tglTerima
 		if (empty($_POST["tglTerima"])) {
-			$tglTerimaErr = "Check in date is required";
+			$tglTerimaErr = "Delivery date is required";
 			$tglTerimaB = "";
 		}
 		else {
@@ -132,21 +132,31 @@
 		$idpembelian=$increments[0] + 1 ;
 		
 		// bikin id bayar pakai if
+		// SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '2016-04-05' AND supplier = 'PT. Indoguna';
 		$ambilIdBayar = "SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '".$tglBeli."' AND supplier = '".$supplierName."';";
-		
-		$kueriIdBayar = pg_query($ambilIdBayar);
-		if(pg_num_rows($kueriIdBayar) == 0)
+		//$ambilIdBayar = "SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '".$tglBeli."' AND supplier = 'PT. Indoguna';";
+
+		//$kueriIdBayar = pg_fetch_array(pg_query($ambilIdBayar));
+		//echo $kueriIdBayar[0];
+
+
+		if(pg_num_rows(pg_query($ambilIdBayar) == 0))
 		{
 			$increments2 = pg_fetch_array(pg_query("select max(idbayar) from pembayaran_out;"));
 			echo $increments2[0];
-			$idbayar=$increments2[0] + 1 ;
-			echo "test";
+			$idPembayaran=$increments2[0] + 1 ;
+			echo "belum ada";
+			$cobamasukan = "INSERT INTO PEMBAYARAN_OUT VALUES ('".$idPembayaran."', '".$supplierName."', '".$tglBeli."', null, null, null);";
+			$cobaresult = pg_query($cobamasukan);
 		}
 		else
 		{
-			$idBayar=$kueriIdBayar;	
+			$idPembayaran=$kueriIdBayar[0];
+			echo "sudah ada";	
+			echo $idPembayaran;
 		}
-		echo $idBayar;
+		//echo $idPembayaran;
+
 		// bikin status delivery pakai default belum
 		$statusDelivery = "Belum Diterima";
 
@@ -171,11 +181,15 @@
 		
 		//masukin ke db
 
-		$masukan = "INSERT INTO PEMBELIAN ;";
-		
-		//$masukan = lala;
-		//echo " weekend";
-				
+		if(!empty($idpembelian) && !empty($idPembayaran) && !empty($supplierName) && !empty($produk) && !empty($jmlKilo) && !empty($jmlKarton) && !empty($tglBeli) && !empty($tglTerima) && !empty($caraTerima) && !empty($caraBayar))
+		{
+
+			//INSERT INTO PEMBELIAN VALUES ('".$idpembelian."', '".$idPembayaran."', '".$produk."', '2016-04-05', '2016-04-20', 'diantar', 'transfer', 'Belum Diterima', 50000, 20, 50);
+			$masukan = "INSERT INTO PEMBELIAN VALUES ('".$idpembelian."', '".$idPembayaran."', '".$produk."', '".$tglBeli."', '".$tglTerima."', '".$caraTerima."', '".$caraBayar."', '".$statusDelivery."', ".$harga_total.", ".$jmlKilo.", ".$jmlKarton.");";
+			$result = pg_query($masukan);
+			//$masukan = lala;
+			//echo " weekend";
+		}		
 	
 	}
 		
@@ -266,7 +280,7 @@
 		<br><br>
 		
 		<!-- submit -->
-		<input id="button" type="submit" value="submit" />
+		<input id="button" type="submit" value="SUBMIT" />
 		<br><br>
 			
 				

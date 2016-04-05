@@ -52,6 +52,14 @@ class SiteController extends Controller
     {
         return $this->render('login');
     }
+    public function actionConnect()
+    {
+        return $this->render('connect');
+    }
+    public function actionCeklogin()
+    {
+        return $this->render('ceklogin');
+    }
 
     public function actionIndex()
     {

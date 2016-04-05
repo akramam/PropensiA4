@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+ use kartik\sidenav\SideNav;
 
 AppAsset::register($this);
 ?>
@@ -54,9 +55,34 @@ AppAsset::register($this);
             )
         ],
     ]);
+
+   /*** echo SideNav::widget([
+    'type' => SideNav::TYPE_DEFAULT,
+    'heading' => 'Options',
+    'items' => [
+        [
+            'url' => '#',
+            'label' => 'Home',
+            'icon' => 'home'
+        ],
+        [
+            'label' => 'Help',
+            'icon' => 'question-sign',
+            'items' => [
+                ['label' => 'About', 'icon'=>'info-sign', 'url'=>'#'],
+                ['label' => 'Contact', 'icon'=>'phone', 'url'=>'#'],
+            ],
+        ],
+    ],
+]);***/
+
     NavBar::end();
     ?>
 
+<php
+
+
+?>
     <div class="container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

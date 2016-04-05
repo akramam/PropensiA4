@@ -29,21 +29,11 @@ use app\models\Jenis;
         ['prompt'=>'Select Jenis']
     ) ?>
 
-    <?= $form->field($model, 'lokasi')->textInput(['maxlength' => true]) ?>
-    <php?
-            $items = array("VIP" => "VIP", 
-                            "Festival A&B" => "Festival A&B", 
-                            "Festival C&D" => "Festival C&D", 
-                            "Festival F&E" => "Festival F&E", 
-                            "WEST VIP" => "WEST VIP", 
-                            "Tribune 2" => "Tribune 1",
-                            "Tribune 2" => "Tribune 2",
-                            "Tribune 3" => "Tribune 3",
-                            "Hot Seat" => "Hot Seat"
-                            );
-            echo $form->dropDownList($model, 'lokasi', $items);
-        ?>
-
+    <?= $form->field($model, 'lokasi')->dropDownList(
+        array('Bekasi'=>'Bekasi','Cakung'=>'Cakung'),
+        ['prompt' => 'Select Lokasi']
+        )
+     ?> 
     <?= $form->field($model, 'namaproduk')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'harga_beli')->textInput() ?>

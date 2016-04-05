@@ -44,9 +44,9 @@ class Merk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idmerk' => Yii::t('app', 'Idmerk'),
-            'idsupplier' => Yii::t('app', 'Idsupplier'),
-            'namasupplier' => Yii::t('app', 'Namasupplier'),
+            'idmerk' => Yii::t('app', 'Id Merk'),
+            'idsupplier' => Yii::t('app', 'Supplier'),
+            'namasupplier' => Yii::t('app', 'Nama Merk'),
             'status' => Yii::t('app', 'Status'),
         ];
     }

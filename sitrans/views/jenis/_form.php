@@ -14,11 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'namajenis')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'rop')->textInput() ?>
-
-    <?= $form->field($model, 'stok_kilo')->textInput() ?>
-
-    <?= $form->field($model, 'stok_karton')->textInput() ?>
+    <?= $form->field($model, 'rop')->textInput(['readonly'=>!$model->isNewRecord]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Supplier;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Merk */
@@ -12,13 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idmerk')->textInput() ?>
-
-    <?= $form->field($model, 'idsupplier')->textInput() ?>
+    <?= $form->field($model, 'idsupplier')->dropDownList(
+		ArrayHelper::map(Supplier::find()->all(),'idsupplier','namasupplier'),
+		['prompt'=>'Select Supplier']
+	) ?>
 
     <?= $form->field($model, 'namasupplier')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

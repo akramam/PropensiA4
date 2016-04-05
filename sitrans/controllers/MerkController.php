@@ -61,7 +61,25 @@ class MerkController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Merk();
+        $myHost = "localhost";
+        $myUser = "postgres";
+        $myPassword = "1234";
+        $myPort = "5432";
+        // Create connection
+        $conn = "host = ".$myHost." user = ".$myUser." password = ".$myPassword." port = ".$myPort." dbname = sitrans";
+        // Check connection
+        if (!$database = pg_connect($conn)) {
+            die("Connection failed");
+        }
+        
+        $increments = pg_fetch_array(pg_query("select max(idmerk) from merk ;"));
+        echo $increments[0];
+        $id=$increments[0] + 1 ;
+        
+       $model = new Merk();
+        $model->idmerk=$id;
+        $model->status='aktif';
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idmerk' => $model->idmerk, 'idsupplier' => $model->idsupplier]);

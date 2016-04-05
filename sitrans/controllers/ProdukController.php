@@ -62,7 +62,7 @@ class ProdukController extends Controller
      * @return mixed
      */
     public function actionCreate()
-    {
+    {   
         $model = new Produk();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

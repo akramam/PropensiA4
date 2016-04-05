@@ -25,15 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idmerk',
-            'idsupplier',
-            'idjenis',
-            'lokasi',
+            //'idmerk',
+            //'idsupplier',
+            //'idjenis',
             'namaproduk',
-            // 'harga_beli',
-            // 'harga_jual',
-            // 'kilo',
-            // 'karton',
+            'harga_beli',
+            'harga_jual',
+            'kilo',
+            'karton',
+            'lokasi',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

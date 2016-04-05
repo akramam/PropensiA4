@@ -46,11 +46,11 @@ class Supplier extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idsupplier' => Yii::t('app', 'Idsupplier'),
-            'namasupplier' => Yii::t('app', 'Namasupplier'),
-            'telponsupplier' => Yii::t('app', 'Telponsupplier'),
-            'alamatsupplier' => Yii::t('app', 'Alamatsupplier'),
-            'no_rekening' => Yii::t('app', 'No Rekening'),
+            'idsupplier' => Yii::t('app', 'ID'),
+            'namasupplier' => Yii::t('app', 'Nama'),
+            'telponsupplier' => Yii::t('app', 'Nomor Telepon'),
+            'alamatsupplier' => Yii::t('app', 'Alamat'),
+            'no_rekening' => Yii::t('app', 'No. Rekening'),
         ];
     }
 

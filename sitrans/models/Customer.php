@@ -43,10 +43,10 @@ class Customer extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idcustomer' => Yii::t('app', 'Id Customer'),
-            'namacustomer' => Yii::t('app', 'Nama Customer'),
-            'telponcustomer' => Yii::t('app', 'Nomor Telepon Customer'),
-            'alamatcustomer' => Yii::t('app', 'Alamat Customer'),
+            'idcustomer' => Yii::t('app', 'Id'),
+            'namacustomer' => Yii::t('app', 'Nama'),
+            'telponcustomer' => Yii::t('app', 'Nomor Telepon'),
+            'alamatcustomer' => Yii::t('app', 'Alamat'),
         ];
     }
 

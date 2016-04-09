@@ -8,6 +8,7 @@ use app\models\ProdukSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use mPDF;
 
 /**
  * ProdukController implements the CRUD actions for Produk model.
@@ -74,6 +75,32 @@ class ProdukController extends Controller
         }
     }
 
+    public function actionPrint()
+    {  
+
+         // get your HTML raw content without any layouts or scripts
+    $content = $this->renderPartial('_reportView');
+
+    // setup kartik\mpdf\Pdf component
+    $pdf = new mPDF();
+    $pdf->WriteHTML('CONGRATSS');
+
+ 
+    // return the pdf output as per the destination setting
+     $pdf->Output(); 
+
+      /*  $model = new Produk();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'idmerk' => $model->idmerk, 'idsupplier' => $model->idsupplier, 'idjenis' => $model->idjenis, 'lokasi' => $model->lokasi]);
+        } else {
+            return $this->render('print', [
+                'model' => $model,
+            ]);
+        }
+
+        */
+    }
     /**
      * Updates an existing Produk model.
      * If update is successful, the browser will be redirected to the 'view' page.

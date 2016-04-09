@@ -42,18 +42,51 @@ AppAsset::register($this);
                 <span class="icon-bar"></span>
               </a>
               <div class="navbar-custom-menu">
-                  <?php
-                      echo Nav::widget([
-                          'options' => ['class' => 'nav navbar-nav'],
-                          'items' => [
-                              Yii::$app->user->isGuest ?
-                                  ['label' => 'Login', 'url' => ['site/login']] :
-                                  ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                                      'url' => ['/site/logout'],
-                                      'linkOptions' => ['data-method' => 'post']],
-                          ],
-                      ]);
-                  ?>
+			  <ul class="nav navbar-nav">
+			  <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="<?php echo Yii::$app->request->baseUrl; ?>/images/user_accounts.png" class="user-image" alt="User Image">
+                  <span class="hidden-xs">
+				  <?php
+                          if(isset(Yii::$app->user->identity->username))
+							  $info[] = (\Yii::$app->user->identity->username);
+                              $info1[] = (\Yii::$app->user->identity->nama);
+							  $info2[] = (\Yii::$app->user->identity->role);
+                          echo implode($info);
+				?>
+				  </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="<?php echo Yii::$app->request->baseUrl; ?>/images/user_accounts.png" class="img-circle" alt="User Image">
+                    <p>
+					<?php
+                         
+                          echo implode($info1);
+				?>
+					<small>
+					<?php
+                         
+                          echo implode($info2);
+				?>
+					</small>
+                    </p>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="../web/logout" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-- Control Sidebar Toggle Button -->
+				</ul>
               </div>
             </nav>
 

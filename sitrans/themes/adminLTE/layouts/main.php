@@ -62,10 +62,8 @@ AppAsset::register($this);
         <?= $content ?>
 
         <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <?php echo Yii::powered(); ?>
-            </div>
-            Copyright &copy; <?php echo date('Y'); ?> by My Company. All Rights Reserved.
+            
+            Copyright &copy; <?php echo date('Y'); ?> by Propensi A4. All Rights Reserved.
         </footer>
 
     </div>

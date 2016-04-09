@@ -1,16 +1,20 @@
 <?php
 
 namespace app\models;
+use app\models\Pengguna;
 
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
     public $id;
     public $username;
     public $password;
+	public $nama;
+	public $role;
     public $authKey;
     public $accessToken;
-
-    private static $users = [
+	
+    /*
+	private $users = [
         '100' => [
             'id' => '100',
             'username' => 'admin',
@@ -26,7 +30,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
             'accessToken' => '101-token',
         ],
     ];
-
+	*/
     /**
      * @inheritdoc
      */
@@ -34,7 +38,12 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
 	
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        $user = Pengguna::findOne($id); 
+        if(count($user)){
+			$username = $user->username;
+            return new static($user);
+        }
+        return null;
     }
 
     /**
@@ -42,12 +51,10 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
+        $user = Pengguna::find()->where(['password'=>$token])->one(); 
+        if(count($user)){
+            return new static($user);
         }
-
         return null;
     }
 
@@ -59,12 +66,10 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
+        $user = Pengguna::find()->where(['username'=>$username])->one(); 
+        if(count($user)){
+            return new static($user);
         }
-
         return null;
     }
 
@@ -73,7 +78,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->id;
+        return $this->username;
     }
 
     /**

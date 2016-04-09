@@ -49,7 +49,7 @@
 
 		//produk
 		if (empty($_POST["produk"])) {
-			$produk = "Produk is required";
+			$produkErr = "Produk is required";
 			$produkB = "";
 		}
 		else {
@@ -128,6 +128,8 @@
 
 		//bikin id beli
 		$increments = pg_fetch_array(pg_query("select max(idbeli) from pembelian;"));
+		echo "<br>";
+		echo "Maksimal ID Pembelian: ";
 		echo $increments[0];
 		$idpembelian=$increments[0] + 1 ;
 		
@@ -136,26 +138,36 @@
 		$ambilIdBayar = "SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '".$tglBeli."' AND supplier = '".$supplierName."';";
 		//$ambilIdBayar = "SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '".$tglBeli."' AND supplier = 'PT. Indoguna';";
 
-		//$kueriIdBayar = pg_fetch_array(pg_query($ambilIdBayar))
-;		//echo $kueriIdBayar[0];
+		$kueriIdBayar = pg_fetch_array(pg_query($ambilIdBayar));
+		echo "<br>";
+		echo $kueriIdBayar[0];
 
-
-		if(pg_num_rows(pg_query($ambilIdBayar) == 0))
-		{
-			$increments2 = pg_fetch_array(pg_query("select max(idbayar) from pembayaran_out;"));
-			echo $increments2[0];
-			$idPembayaran=$increments2[0] + 1 ;
-			echo "belum ada";
-			$cobamasukan = "INSERT INTO PEMBAYARAN_OUT VALUES ('".$idPembayaran."', '".$supplierName."', '".$tglBeli."', null, null, null);";
-			$cobaresult = pg_query($cobamasukan);
-		}
-		else
-		{
-			$idPembayaran=$kueriIdBayar[0];
-			echo "sudah ada";	
-			echo $idPembayaran;
-		}
-		//echo $idPembayaran;
+		
+			if(pg_num_rows(pg_query($ambilIdBayar)) == 0)
+			{
+				$increments2 = pg_fetch_array(pg_query("select max(idbayar) from pembayaran_out;"));
+				echo "<br>";
+				echo "Maksimal ID Pembayaran: ";
+				echo $increments2[0];
+				$idPembayaran=$increments2[0] + 1 ;
+				echo "<br>";
+				echo "belum ada";
+				if(!empty($idpembelian) && !empty($idPembayaran) && !empty($supplierName) && !empty($produk) && !empty($jmlKilo) && !empty($jmlKarton) && !empty($tglBeli) && !empty($tglTerima) && !empty($caraTerima) && !empty($caraBayar))
+				{
+					$cobamasukan = "INSERT INTO PEMBAYARAN_OUT VALUES ('".$idPembayaran."', '".$supplierName."', '".$tglBeli."', null, null, null);";
+					$cobaresult = pg_query($cobamasukan);
+				}
+			}
+			else
+			{
+				$idPembayaran=$kueriIdBayar[0];
+				echo "<br>";
+				echo "sudah ada";
+				echo "Id Bayar ke 0: ";
+				echo "<br>";	
+				echo $idPembayaran;
+			}
+			//echo $idPembayaran;
 
 		// bikin status delivery pakai default belum
 		$statusDelivery = "Belum Diterima";
@@ -168,17 +180,17 @@
 		}
 
 		$ambilHargaProduk = "SELECT harga_beli FROM produk WHERE namaProduk = '".$produk."';";
-		$hargaProduk = pg_query($ambilHargaProduk);
-		$harga_total= kali($hargaProduk, $jmlKilo);
+		$hargaProduk = pg_fetch_array(pg_query($ambilHargaProduk));
+		$harga_total= kali($hargaProduk[0], $jmlKilo);
 
 		echo "<br>";
-		echo "5 * 10 = " . kali(5, 10) . "<br>";
-		$a=5;
-		$b=6;
-		$cobaKali= kali($a,$b);
-		echo "<br>";
-		echo $cobaKali;
-		
+		//echo "5 * 10 = " . kali(5, 10) . "<br>";
+		//$a=5;
+		//$b=6;
+		//$cobaKali= kali($a,$b);
+		//echo "<br>";
+		echo $harga_total;
+
 		//masukin ke dbmoi
 
 		if(!empty($idpembelian) && !empty($idPembayaran) && !empty($supplierName) && !empty($produk) && !empty($jmlKilo) && !empty($jmlKarton) && !empty($tglBeli) && !empty($tglTerima) && !empty($caraTerima) && !empty($caraBayar))
@@ -205,7 +217,8 @@
 	}
 	
 		
-	pg_close($database);	
+	pg_close($database);
+	//header("location:index.php");	
 ?>
 
 <!DOCTYPE html>
@@ -218,7 +231,14 @@
 
 <body>
 	<!-- Tanggal hari ini -->
-		
+	
+	<form action="totalHarga.php" method="get">
+	<input type="submit" value="DONE">
+	</form>
+
+
+
+
 	<div class="form2">	
 	
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post" autocomplete="on" id="search-form" novalidate>
@@ -230,14 +250,67 @@
 		<!-- supplier dropdown -->
 		<label for="supplierName"> Supplier <span class="error"><?php echo $supplierNameB;?></span></label>
 		<br><span class="error"><?php echo $supplierNameErr;?></span>
-		<input class ="input" type="text" name="supplierName" placeholder="Choose your supplier name" id="supplierName" required autofocus> 
-				
+		<select class ="input" type="text" name="supplierName" id="supplierName" required autofocus>
+		<?php
+			$myHost = "localhost";
+			$myUser = "postgres";
+			$myPassword = "1234";
+			$myPort = "5432";
+	
+			// Create connection
+			$conn = "host = ".$myHost." user = ".$myUser." password = ".$myPassword." port = ".$myPort." dbname = sitrans";
+			// Check connection
+			if (!$database = pg_connect($conn)) {
+				die("Could not connect to database");
+			}
+
+			//echo '<select class="input" name="supplierName" id="supplierName" required autofocus>'; // Open your drop down box
+
+			$result = pg_query(sprintf("select namaSupplier from supplier;"));
+
+			// Loop through the query results, outputing the options one by one
+			while ($row = pg_fetch_assoc($result)) {
+				echo '<option value="'.$row['namasupplier'].'">'.$row['namasupplier'].'</option>';
+			}
+			//echo '</select>';
+			
+			pg_close($database);
+	    ?>
+	    </select>
+	    	
 		<br><br>
 
 		<!-- produk dropdown -->
 		<label for="produk"> Produk <span class="error"><?php echo $produkB;?></span></label>
 		<br><span class="error"><?php echo $produkErr;?></span>
-		<input class ="input" type="text" name="produk" placeholder="Choose the product name" id="produk" required autofocus> 
+		<select class ="input" type="text" name="produk" id="produk" required autofocus>
+		<?php
+			$myHost = "localhost";
+			$myUser = "postgres";
+			$myPassword = "1234";
+			$myPort = "5432";
+	
+			// Create connection
+			$conn = "host = ".$myHost." user = ".$myUser." password = ".$myPassword." port = ".$myPort." dbname = sitrans";
+			// Check connection
+			if (!$database = pg_connect($conn)) {
+				die("Could not connect to database");
+			}
+
+			//echo '<select class="input" name="supplierName" id="supplierName" required autofocus>'; // Open your drop down box
+
+			$result = pg_query(sprintf("select namaproduk from produk;"));
+
+			// Loop through the query results, outputing the options one by one
+			while ($row = pg_fetch_assoc($result)) {
+				echo '<option name="produk" id="produk" value="'.$row['namaproduk'].'">'.$row['namaproduk'].'</option>';
+			}
+			//echo '</select>';
+			
+			pg_close($database);
+	    ?>
+	    </select>
+	    		
 				
 		<br><br>		
 				

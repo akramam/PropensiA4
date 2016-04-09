@@ -7,12 +7,11 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Merk */
 
 $this->title = $model->idmerk;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Merks'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Merk'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="merk-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'idmerk' => $model->idmerk, 'idsupplier' => $model->idsupplier], ['class' => 'btn btn-primary']) ?>

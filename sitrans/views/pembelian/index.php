@@ -6,12 +6,10 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pembelians';
+$this->title = 'Pembelian';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pembelian-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Create Pembelian', ['create'], ['class' => 'btn btn-success']) ?>

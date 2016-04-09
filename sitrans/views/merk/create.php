@@ -7,12 +7,10 @@ use yii\helpers\Html;
 /* @var $model app\models\Merk */
 
 $this->title = Yii::t('app', 'Create Merk');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Merks'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Merk'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="merk-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -7,12 +7,10 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Supplier */
 
 $this->title = $model->idsupplier;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Suppliers'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Supplier'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="supplier-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->idsupplier], ['class' => 'btn btn-primary']) ?>

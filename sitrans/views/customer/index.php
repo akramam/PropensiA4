@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\CustomerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Customers');
+$this->title = Yii::t('app', 'Customer');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="customer-index">

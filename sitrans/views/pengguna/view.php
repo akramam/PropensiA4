@@ -7,12 +7,10 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Pengguna */
 
 $this->title = $model->username;
-$this->params['breadcrumbs'][] = ['label' => 'Penggunas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Pengguna', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pengguna-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->username], ['class' => 'btn btn-primary']) ?>

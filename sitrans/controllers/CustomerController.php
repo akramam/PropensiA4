@@ -72,7 +72,7 @@ class CustomerController extends Controller
 		}
 		
 		$increments = pg_fetch_array(pg_query("select max(idcustomer) from customer ;"));
-		echo $increments[0];
+		
 		$id=$increments[0] + 1 ;
 		
         $model = new Customer();

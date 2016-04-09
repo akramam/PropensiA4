@@ -42,14 +42,14 @@ use app\themes\adminLTE\components\ThemeNav;
                   'items' => [
                       ['label'=>Yii::t('app','MAIN NAVIGITION'), 'options'=>['class'=>'header']],
                       ['label' => ThemeNav::link('Dashboard', 'fa fa-dashboard'), 'url' => ['site/index'], 'visible'=>!Yii::$app->user->isGuest],
-					  ['label' => ThemeNav::link('Pengguna', 'fa fa-book'), 'url' => ['pengguna/index'],],
-					  ['label' => ThemeNav::link('Customer', 'fa fa-edit'), 'url' => ['customer/index'],],
-					  ['label' => ThemeNav::link('Supplier', 'fa fa-table'), 'url' => ['supplier/index'],],
-					  ['label' => ThemeNav::link('Merk', 'fa fa-table'), 'url' => ['merk/index'],],
-					  ['label' => ThemeNav::link('Jenis', 'fa fa-table'), 'url' => ['jenis/index'],],
-					  ['label' => ThemeNav::link('Produk', 'fa fa-table'), 'url' => ['produk/index'],],
-					  ['label' => ThemeNav::link('Pembelian', 'fa fa-table'), 'url' => ['pembelian/index'],],
-					  ['label' => ThemeNav::link('Penjualan', 'fa fa-table'), 'url' => ['penjualan/index'],],
+					  ['label' => ThemeNav::link('Pengguna', 'fa fa-book'), 'url' => ['pengguna/index'], 'visible'=>!Yii::$app->user->isGuest],
+					  ['label' => ThemeNav::link('Customer', 'fa fa-edit'), 'url' => ['customer/index'], 'visible'=>!Yii::$app->user->isGuest],
+					  ['label' => ThemeNav::link('Supplier', 'fa fa-table'), 'url' => ['supplier/index'], 'visible'=>!Yii::$app->user->isGuest],
+					  ['label' => ThemeNav::link('Merk', 'fa fa-table'), 'url' => ['merk/index'], 'visible'=>!Yii::$app->user->isGuest],
+					  ['label' => ThemeNav::link('Jenis', 'fa fa-table'), 'url' => ['jenis/index'], 'visible'=>!Yii::$app->user->isGuest],
+					  ['label' => ThemeNav::link('Produk', 'fa fa-table'), 'url' => ['produk/index'], 'visible'=>!Yii::$app->user->isGuest],
+					  ['label' => ThemeNav::link('Pembelian', 'fa fa-table'), 'url' => ['pembelian/index'], 'visible'=>!Yii::$app->user->isGuest],
+					  ['label' => ThemeNav::link('Penjualan', 'fa fa-table'), 'url' => ['penjualan/index'], 'visible'=>!Yii::$app->user->isGuest],
                   ],
                 ]);
             ?>

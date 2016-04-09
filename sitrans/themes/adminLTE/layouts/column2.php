@@ -23,7 +23,7 @@ use app\themes\adminLTE\components\ThemeNav;
                           $info[] = Yii::t('app','Hello');
 
                           if(isset(Yii::$app->user->identity->username))
-                              $info[] = ucfirst(\Yii::$app->user->identity->username);
+                              $info[] = (\Yii::$app->user->identity->username);
 
                           echo implode(', ', $info);
                       ?>

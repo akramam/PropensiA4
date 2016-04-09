@@ -8,11 +8,11 @@ $this->title = 'Dashboard';
 
     <div class="jumbotron">
         
-		<h1>Welocome 
+		<h1>Welocome, 
 		
 		<?php
                           if(isset(Yii::$app->user->identity->username))
-                              $info[] = ucfirst(\Yii::$app->user->identity->username);
+                              $info[] = (\Yii::$app->user->identity->username);
 
                           echo implode($info);
         ?>!</h1>

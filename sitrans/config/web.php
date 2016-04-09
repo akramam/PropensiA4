@@ -9,6 +9,16 @@ $config = [
 	'layout'=>'column2',
     'layoutPath'=>'@app/themes/adminLTE/layouts',
     'components' => [
+		'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                
+                '<action:(index|login|logout)>'=>'site/<action>',
+                
+            ],
+        ],
 		'view' => [
             'theme' => [
                 'pathMap' => ['@app/views' => '@app/themes/adminLTE'],

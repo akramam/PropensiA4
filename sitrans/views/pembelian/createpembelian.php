@@ -122,7 +122,7 @@
 		
 		
 	}
-	
+	/*
 	if(empty($supplierNameErr) && empty($produkErr) && empty($jmlKiloErr) && empty($jmlKartonErr) && empty($tglTerimaErr) && empty($caraTerimaErr) && empty($caraBayarErr))
 	{
 
@@ -136,10 +136,10 @@
 		$ambilIdBayar = "SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '".$tglBeli."' AND supplier = '".$supplierName."';";
 		//$ambilIdBayar = "SELECT idbayar FROM pembayaran_out WHERE tgl_trans = '".$tglBeli."' AND supplier = 'PT. Indoguna';";
 
-		//$kueriIdBayar = pg_fetch_array(pg_query($ambilIdBayar))
-;		//echo $kueriIdBayar[0];
+		//$kueriIdBayar = pg_fetch_array(pg_query($ambilIdBayar));
+		//echo $kueriIdBayar[0];
 
-
+		/*
 		if(pg_num_rows(pg_query($ambilIdBayar) == 0))
 		{
 			$increments2 = pg_fetch_array(pg_query("select max(idbayar) from pembayaran_out;"));
@@ -179,7 +179,7 @@
 		echo "<br>";
 		echo $cobaKali;
 		
-		//masukin ke dbmoi
+		//masukin ke db
 
 		if(!empty($idpembelian) && !empty($idPembayaran) && !empty($supplierName) && !empty($produk) && !empty($jmlKilo) && !empty($jmlKarton) && !empty($tglBeli) && !empty($tglTerima) && !empty($caraTerima) && !empty($caraBayar))
 		{
@@ -194,7 +194,7 @@
 	}
 		
 		//$result = pg_query($masukan);
-	
+	*/
 	
 		
 	function test_input($data) {

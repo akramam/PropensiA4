@@ -112,6 +112,11 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+	
+	public function actionCreatepembelian()
+    {
+        return $this->render('createpembelian');
+    }
 
     public function actionAbout()
     {

@@ -41,6 +41,17 @@ class PembelianController extends Controller
         ]);
     }
 
+    public function actionIndex2()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Pembelian::find(),
+        ]);
+
+        return $this->render('index2', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Pembelian model.
      * @param integer $id
@@ -65,7 +76,7 @@ class PembelianController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idbeli]);
         } else {
-            return $this->render('create', [
+            return $this->render('createpembelian', [
                 'model' => $model,
             ]);
         }
@@ -103,6 +114,42 @@ class PembelianController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionConfirm($id)
+    {
+        //$model = $this->findModel($id);
+
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //return $this->redirect(['view', 'id' => $model->idbeli]);
+      
+            $myHost = "localhost";
+            $myUser = "postgres";
+            $myPassword = "1234";
+            $myPort = "5432";
+            // Create connection
+            $conn = "host = ".$myHost." user = ".$myUser." password = ".$myPassword." port = ".$myPort." dbname = sitrans";
+            // Check connection
+            if (!$database = pg_connect($conn)) {
+                die("Connection failed");
+            }
+            
+            //$ambilStatus = "SELECT status_del FROM pembelian WHERE idbeli = '".$id."';";
+            $ubahStatus = "UPDATE PEMBELIAN SET status_del = 'Diterima' WHERE idbeli = '".$id."';";
+            $masukin = pg_query($ubahStatus);
+
+
+                return $this->render('view', [
+                        'model' => $this->findModel($id),
+                    ]);
+
+
+
+
+       // } else {
+        //    return $this->render('confirm', [
+                //'model' => $model,
+        //    ]);
+        //}
+    }
     /**
      * Finds the Pembelian model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

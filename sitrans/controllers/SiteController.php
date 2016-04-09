@@ -59,12 +59,12 @@ class SiteController extends Controller
     public function actionCeklogin()
     {
         return $this->render('ceklogin');
-    }
+    }**/
 
     public function actionIndex()
     {
         return $this->render('index');
-    }**/
+    }
 
     public function actionLogin()
     {

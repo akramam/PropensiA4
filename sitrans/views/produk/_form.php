@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\Merk;
 use app\models\Jenis;
+use app\models\Supplier;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Produk */
@@ -14,17 +15,13 @@ use app\models\Jenis;
 <div class="produk-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
     <?= $form->field($model, 'idmerk')->dropDownList(
         ArrayHelper::map(Merk::find()->all(),'idmerk','namasupplier'),
         ['prompt'=>'Select Merk']
     ) ?>
 
-     <?= $form->field($model, 'idsupplier')->dropDownList(
-        ArrayHelper::map(Merk::find()->all(),'idsupplier','namasupplier'),
-        ['prompt'=>'Select Supplier']
-    ) ?>
-
-     <?= $form->field($model, 'idjenis')->dropDownList(
+    <?= $form->field($model, 'idjenis')->dropDownList(
         ArrayHelper::map(Jenis::find()->all(),'idjenis','namajenis'),
         ['prompt'=>'Select Jenis']
     ) ?>
@@ -34,6 +31,7 @@ use app\models\Jenis;
         ['prompt' => 'Select Lokasi']
         )
      ?> 
+
     <?= $form->field($model, 'namaproduk')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'harga_beli')->textInput() ?>

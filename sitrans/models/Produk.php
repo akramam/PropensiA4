@@ -8,7 +8,6 @@ use Yii;
  * This is the model class for table "produk".
  *
  * @property integer $idmerk
- * @property integer $idsupplier
  * @property integer $idjenis
  * @property string $lokasi
  * @property string $namaproduk
@@ -38,8 +37,8 @@ class Produk extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idmerk', 'idsupplier', 'idjenis', 'lokasi'], 'required'],
-            [['idmerk', 'idsupplier', 'idjenis', 'harga_beli', 'harga_jual'], 'integer'],
+            [['idmerk', 'idjenis', 'lokasi'], 'required'],
+            [['idmerk', 'idjenis', 'harga_beli', 'harga_jual'], 'integer'],
             [['kilo', 'karton'], 'number'],
             [['lokasi'], 'string', 'max' => 25],
             [['namaproduk'], 'string', 'max' => 50],
@@ -53,11 +52,10 @@ class Produk extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idmerk' => Yii::t('app', 'Merk'),
-            'idsupplier' => Yii::t('app', 'Supplier'),
-            'idjenis' => Yii::t('app', 'Jenis'),
+            'idmerk' => Yii::t('app', 'Idmerk'),
+            'idjenis' => Yii::t('app', 'Idjenis'),
             'lokasi' => Yii::t('app', 'Lokasi'),
-            'namaproduk' => Yii::t('app', 'Nama Produk'),
+            'namaproduk' => Yii::t('app', 'Namaproduk'),
             'harga_beli' => Yii::t('app', 'Harga Beli'),
             'harga_jual' => Yii::t('app', 'Harga Jual'),
             'kilo' => Yii::t('app', 'Kilo'),
@@ -94,6 +92,6 @@ class Produk extends \yii\db\ActiveRecord
      */
     public function getIdmerk0()
     {
-        return $this->hasOne(Merk::className(), ['idmerk' => 'idmerk', 'idsupplier' => 'idsupplier']);
+        return $this->hasOne(Merk::className(), ['idmerk' => 'idmerk']);
     }
 }

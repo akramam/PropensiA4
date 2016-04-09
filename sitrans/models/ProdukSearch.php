@@ -18,7 +18,7 @@ class ProdukSearch extends Produk
     public function rules()
     {
         return [
-            [['idmerk', 'idsupplier', 'idjenis', 'harga_beli', 'harga_jual'], 'integer'],
+            [['idmerk', 'idjenis', 'harga_beli', 'harga_jual'], 'integer'],
             [['lokasi', 'namaproduk'], 'safe'],
             [['kilo', 'karton'], 'number'],
         ];
@@ -58,7 +58,6 @@ class ProdukSearch extends Produk
 
         $query->andFilterWhere([
             'idmerk' => $this->idmerk,
-            'idsupplier' => $this->idsupplier,
             'idjenis' => $this->idjenis,
             'harga_beli' => $this->harga_beli,
             'harga_jual' => $this->harga_jual,

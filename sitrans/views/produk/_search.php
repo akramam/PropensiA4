@@ -17,15 +17,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'idmerk') ?>
 
-    <?= $form->field($model, 'idsupplier') ?>
-
     <?= $form->field($model, 'idjenis') ?>
 
     <?= $form->field($model, 'lokasi') ?>
 
     <?= $form->field($model, 'namaproduk') ?>
 
-    <?php // echo $form->field($model, 'harga_beli') ?>
+    <?= $form->field($model, 'harga_beli') ?>
 
     <?php // echo $form->field($model, 'harga_jual') ?>
 

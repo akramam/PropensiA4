@@ -34,6 +34,7 @@ class Pengguna extends \yii\db\ActiveRecord
         ];
     }
 
+    
     /**
      * @inheritdoc
      */

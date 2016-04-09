@@ -7,16 +7,16 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ProdukSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Produk');
+$this->title = Yii::t('app', 'Produks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="produk-index">
 
+    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Produk'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Print'), ['print'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,14 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'idmerk',
-            //'idsupplier',
             //'idjenis',
+            'lokasi',
             'namaproduk',
             'harga_beli',
-            'harga_jual',
-            'kilo',
-            'karton',
-            'lokasi',
+             'harga_jual',
+             'kilo',
+             'karton',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

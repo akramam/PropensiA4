@@ -10,10 +10,14 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+<div class="login-box">
+    <div class="login-logo">
+        <a href="../../index2.html"><b>SITRANS</b>HGH</a>
+    </div><!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Please fill out the following fields to login:</p>
+
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -24,24 +28,24 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'username', [
+            "template"=>"<span class=\"glyphicon glyphicon-user form-control-feedback\"></span>\n{input}",
+            'options'=>['class'=>'form-group has-feedback']])->textInput(['autofocus' => true, 'placeholder'=>Yii::t('app', $model->getAttributeLabel('username'))]) ?>
 
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password', [
+            "template"=>"<span class=\"glyphicon glyphicon-lock form-control-feedback\"></span>\n{input}",
+            'options'=>['class'=>'form-group has-feedback']])->passwordInput(['placeholder'=>Yii::t('app', $model->getAttributeLabel('password'))]) ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
-
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
-        </div>
+        <div class="row">
+             <div class="col-xs-8">
+                
+            </div><!-- /.col -->
+             <div class="col-xs-4">
+                 <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block btn-flat', 'name' => 'login-button']) ?>
+             </div>
+         </div>
 
     <?php ActiveForm::end(); ?>
 
-    <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
-    </div>
-</div>
+    </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->

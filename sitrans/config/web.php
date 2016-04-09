@@ -6,7 +6,16 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+	'layout'=>'column2',
+    'layoutPath'=>'@app/themes/adminLTE/layouts',
     'components' => [
+		'view' => [
+            'theme' => [
+                'pathMap' => ['@app/views' => '@app/themes/adminLTE'],
+                'baseUrl' => '@web/../themes/adminLTE',
+            ],
+        ],
+		
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '1234',
@@ -59,8 +68,16 @@ if (YII_ENV_DEV) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-    ];
+            'class' => 'yii\gii\Module',
+            'generators' => [ //here
+                'crud' => [ // generator name
+                    'class' => 'yii\gii\generators\crud\Generator', // generator class
+                    'templates' => [ //setting for out templates
+                        'custom' => '@app/vendor/yiisoft/yii2-gii/generators/crud/custom', // template name => path to template
+                    ]
+                ]
+            ],
+        ];
 }
 
 return $config;

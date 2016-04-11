@@ -49,14 +49,11 @@ AppAsset::register($this);
                   <img src="<?php echo Yii::$app->request->baseUrl; ?>/images/user_accounts.png" class="user-image" alt="User Image">
                   <span class="hidden-xs">
 				  <?php
-                        if (!\Yii::$app->user->isGuest){
-							if(isset(Yii::$app->user->identity->username))
+                          if(isset(Yii::$app->user->identity->username))
 							  $info[] = (\Yii::$app->user->identity->username);
                               $info1[] = (\Yii::$app->user->identity->nama);
 							  $info2[] = (\Yii::$app->user->identity->role);
-						echo implode($info);
-						}
-						  
+                          echo implode($info);
 				?>
 				  </span>
                 </a>
@@ -66,15 +63,13 @@ AppAsset::register($this);
                     <img src="<?php echo Yii::$app->request->baseUrl; ?>/images/user_accounts.png" class="img-circle" alt="User Image">
                     <p>
 					<?php
-                         if (!\Yii::$app->user->isGuest){
-	                          echo implode($info1);		
-						} 
+                         
+                          echo implode($info1);
 				?>
 					<small>
 					<?php
-                        if (!\Yii::$app->user->isGuest){
-	                          echo implode($info2);		
-						} 
+                         
+                          echo implode($info2);
 				?>
 					</small>
                     </p>

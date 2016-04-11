@@ -14,16 +14,7 @@ use yii\filters\VerbFilter;
  */
 class SupplierController extends Controller
 {
-    public function beforeAction($action)
-        {
-		if (!\Yii::$app->user->isGuest){
-			return $this->render('index');
-		} else {
-			return $this->redirect(Yii::$app->user->loginUrl);
-		}
-    }
-	
-	public function behaviors()
+    public function behaviors()
     {
         return [
             'verbs' => [

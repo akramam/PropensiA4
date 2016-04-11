@@ -14,7 +14,16 @@ use yii\filters\VerbFilter;
  */
 class PembayaranOutController extends Controller
 {
-    public function behaviors()
+    public function beforeAction($action)
+        {
+		if (Yii::$app->user->isGuest){
+			return $this->redirect(Yii::$app->user->loginUrl);
+		} else {
+			return true;
+		}
+    }
+	
+	public function behaviors()
     {
         return [
             'verbs' => [
